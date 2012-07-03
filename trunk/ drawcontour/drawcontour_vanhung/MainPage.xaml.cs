@@ -30,11 +30,19 @@ namespace drawcontour_vanhung
         PointCollection points = new PointCollection();
         List<Ellipse> listelipses = new List<Ellipse>();
         bool conditionchangersize = false;
+        Point startchanger;
+        Point enchanger;
+        bool beginchanger = false;
+        double newwidth;
+        double newheight;
         private void canvas1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (changersize==true)
             {
+                startchanger=new Point(e.GetPosition(canvas1).X,e.GetPosition(canvas1).Y);
+                beginchanger = true;
                 this.Cursor = Cursors.SizeNWSE;
+               
             }
             //this.Cursor = Cursors.SizeNS;
           ////  points.Clear();
@@ -58,6 +66,18 @@ namespace drawcontour_vanhung
         }
         Ellipse elipse_selected;
         bool changersize = false;
+        private void ReDraw(Point location,double Width,double Height)
+        {
+            Rectangle newrectanger = new Rectangle();
+            newrectanger.Stroke = new SolidColorBrush(Colors.Red);
+            newrectanger.StrokeThickness = 2;
+            newrectanger.Fill = new SolidColorBrush(Colors.Yellow);
+            newrectanger.Width = Width;
+            newrectanger.Height = Height;
+            newrectanger.SetValue(Canvas.LeftProperty, location.X);
+            newrectanger.SetValue(Canvas.TopProperty, location.Y);
+            canvas1.Children.Add(newrectanger);
+        }
         private void canvas1_MouseMove(object sender, MouseEventArgs e)
         {
             current_Selectted = new Point(e.GetPosition(canvas1).X, e.GetPosition(canvas1).Y);
@@ -75,15 +95,7 @@ namespace drawcontour_vanhung
                {
                    changersize = false;
                }
-               //if (khoangcach < 20)
-               //{
-               //    elipse_selected = listelipses[0];
-               //    //Ellipse elipse_selected = listelipses[0];
-               //    canvas1.Children.Remove(elipse_selected);
-               //    vehinhtaidiemtrenbentrai_changer();
-                   
-               //    changersize = true;
-               //}
+              
                if (changersize==true)
                {
                   // MessageBox.Show("");
@@ -94,6 +106,19 @@ namespace drawcontour_vanhung
                else
                {
                    this.Cursor = Cursors.Arrow;
+               }
+               if (beginchanger==true)
+               {
+                   enchanger = new Point(e.GetPosition(canvas1).X, e.GetPosition(canvas1).Y);
+                   double khoangthaydoix = enchanger.X - startchanger.X;
+                   double khoangthaydoiy = enchanger.Y - startchanger.Y;
+                   topleft.X = topleft.X - khoangthaydoix;
+                   topleft.Y = topleft.Y - khoangthaydoiy;
+                   belowleft.X = belowleft.X - khoangthaydoix;
+                   newwidth = belowright.X - belowleft.X;
+                   newheight = belowleft.Y - topleft.Y;
+                   canvas1.Children.Remove(shape_curentselected);
+                   ReDraw(topleft, newwidth, newheight);
                }
               
            }
@@ -269,7 +294,8 @@ namespace drawcontour_vanhung
 
         private void canvas1_MouseLeave(object sender, MouseEventArgs e)
         {
-            conditionchangersize = false;
+            this.Cursor = Cursors.Arrow;
+
         }
     }
 }

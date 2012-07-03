@@ -3,3 +3,8 @@ c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcont
 c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\obj\Debug\ResolveAssemblyReference.cache
 c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.dll
 c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.pdb
+C:\Users\Tuvu\Desktop\drawcontour\drawcontour_vanhung.Web\bin\drawcontour_vanhung.Web.dll
+C:\Users\Tuvu\Desktop\drawcontour\drawcontour_vanhung.Web\bin\drawcontour_vanhung.Web.pdb
+C:\Users\Tuvu\Desktop\drawcontour\drawcontour_vanhung.Web\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Tuvu\Desktop\drawcontour\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.dll
+C:\Users\Tuvu\Desktop\drawcontour\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.pdb
