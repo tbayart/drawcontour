@@ -1,0 +1,5 @@
+c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\bin\drawcontour_vanhung.Web.dll
+c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\bin\drawcontour_vanhung.Web.pdb
+c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\obj\Debug\ResolveAssemblyReference.cache
+c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.dll
+c:\users\tuvu\documents\visual studio 2010\Projects\drawcontour_vanhung\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.pdb
