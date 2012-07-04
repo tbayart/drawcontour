@@ -6,8 +6,8 @@
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
 
-    <Grid x:Name="LayoutRoot" Background="White" MouseMove="LayoutRoot_MouseMove" MouseLeftButtonDown="LayoutRoot_MouseLeftButtonDown" MouseLeftButtonUp="LayoutRoot_MouseLeftButtonUp">
-        <Canvas Height="700" HorizontalAlignment="Left" Name="canvas1" VerticalAlignment="Top" Width="1000" MouseLeftButtonDown="canvas1_MouseLeftButtonDown" MouseLeftButtonUp="canvas1_MouseLeftButtonUp" MouseMove="canvas1_MouseMove" MouseLeave="canvas1_MouseLeave">
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Canvas Height="700" HorizontalAlignment="Left" Background="AntiqueWhite"  Name="canvas1" VerticalAlignment="Top" Width="1000" MouseLeftButtonDown="canvas1_MouseLeftButtonDown" MouseLeftButtonUp="canvas1_MouseLeftButtonUp" MouseMove="canvas1_MouseMove">
             <Button Canvas.Left="259" Canvas.Top="6" Content="add rectanger" Height="39" Name="addrectanger" Width="116" Click="addrectanger_Click" />
             <sdk:Label Canvas.Left="259" Canvas.Top="69" Height="28" Name="label1" Width="120" />
             <sdk:Label Canvas.Left="262" Canvas.Top="112" Height="28" Name="label2" Width="120" />
