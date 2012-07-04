@@ -50,6 +50,15 @@ namespace drawcontour_vanhung
         {
             movedown = false;
             kiemtra = Options.none;
+            Point current = new Point();
+            current.X = (double)shape_selected.GetValue(Canvas.LeftProperty);
+            current.Y = (double)shape_selected.GetValue(Canvas.TopProperty);
+            positionx = current.X;
+            positiony = current.Y;
+            vehinhtaidiembenphaiduoi();
+            vehinhtaidiembenphaitren();
+            vehinhtaidiembentraiduoi();
+            vehinhtaidiemtrenbentrai();
         }
        
         private double distance(Point diem1,Point diem2)
@@ -65,7 +74,10 @@ namespace drawcontour_vanhung
               if (kiemtra==Options.move_rectanger&&movedown==true)
               {
                   
-                 
+                 foreach (Ellipse elip in listelipses)
+                 {
+                     canvas1.Children.Remove(elip);
+                 }
                   Point current_selected = e.GetPosition(canvas1);
                   double x = current_selected.X - position_shape.X;
                   double y = current_selected.Y - position_shape.Y;
@@ -82,9 +94,13 @@ namespace drawcontour_vanhung
                  Point enpoint = e.GetPosition(canvas1);
                  double x = enpoint.X - current.X;
                  double y = enpoint.Y - current.Y;
-                 if (shape_selected.Width-x<0||shape_selected.Height-y<0)
+                 if (shape_selected.Width-x<3||shape_selected.Height-y<3)
                  {
                      return;
+                 }
+                 foreach (Ellipse elip in listelipses)
+                 {
+                     canvas1.Children.Remove(elip);
                  }
                  shape_selected.Width-=x;
                  shape_selected.Height-=y;
@@ -92,6 +108,8 @@ namespace drawcontour_vanhung
                  elipse.SetValue(Canvas.TopProperty, enpoint.Y-10);
                  shape_selected.SetValue(Canvas.LeftProperty, enpoint.X);
                  shape_selected.SetValue(Canvas.TopProperty, enpoint.Y);
+                
+                
              }
             else
              
@@ -100,6 +118,7 @@ namespace drawcontour_vanhung
                       {
                           return;
                       }
+                      
                       Point current_selected = e.GetPosition(canvas1);
                       Point vitricuahinh = new Point();
                       vitricuahinh.X = (double)shape_selected.GetValue(Canvas.LeftProperty);
@@ -156,6 +175,15 @@ namespace drawcontour_vanhung
         void rectanger_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             kiemtra = Options.none;
+            Point current = new Point();
+            current.X = (double)shape_selected.GetValue(Canvas.LeftProperty);
+            current.Y =(double) shape_selected.GetValue(Canvas.TopProperty);
+            positionx = current.X;
+            positiony = current.Y;
+            vehinhtaidiembenphaiduoi();
+            vehinhtaidiembenphaitren();
+            vehinhtaidiembentraiduoi();
+            vehinhtaidiemtrenbentrai();
         }
 
         void rectanger_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -163,8 +191,13 @@ namespace drawcontour_vanhung
             shape_selected = (Rectangle)sender;
             position_shape = e.GetPosition(shape_selected);
             kiemtra = Options.move_rectanger;
-            positionx = position_shape.X;
-            positiony = position_shape.Y;
+            positionx =(double) shape_selected.GetValue(Canvas.LeftProperty);
+
+            positiony = (double)shape_selected.GetValue(Canvas.TopProperty);
+            vehinhtaidiembenphaiduoi();
+            vehinhtaidiembenphaitren();
+            vehinhtaidiembentraiduoi();
+            vehinhtaidiemtrenbentrai();
         }
 
         void rectanger_MouseEnter(object sender, MouseEventArgs e)
@@ -186,9 +219,9 @@ namespace drawcontour_vanhung
             //positionx = (int)shape_curentselected.GetValue(Canvas.LeftProperty);
             //positiony = (int)shape_curentselected.GetValue(Canvas.TopProperty);
             elipse_toleft.Stroke = new SolidColorBrush(Colors.Green);
-            elipse_toleft.StrokeThickness = 2;
-            elipse_toleft.SetValue(Canvas.LeftProperty, positionx-9);
-            elipse_toleft.SetValue(Canvas.TopProperty, positiony - 9);
+            elipse_toleft.StrokeThickness = 1.5;
+            elipse_toleft.SetValue(Canvas.LeftProperty, positionx-10);
+            elipse_toleft.SetValue(Canvas.TopProperty, positiony - 10);
             canvas1.Children.Add(elipse_toleft);
             listelipses.Add(elipse_toleft);
         }
@@ -201,9 +234,9 @@ namespace drawcontour_vanhung
             //positionx = (int)shape_curentselected.GetValue(Canvas.LeftProperty);
             //positiony = (int)shape_curentselected.GetValue(Canvas.TopProperty);
             elipse_toleft.Stroke = new SolidColorBrush(Colors.Yellow);
-            elipse_toleft.StrokeThickness = 2;
-            elipse_toleft.SetValue(Canvas.LeftProperty, positionx - 9);
-            elipse_toleft.SetValue(Canvas.TopProperty, positiony - 9);
+            elipse_toleft.StrokeThickness = 1.5;
+            elipse_toleft.SetValue(Canvas.LeftProperty, positionx - 10);
+            elipse_toleft.SetValue(Canvas.TopProperty, positiony - 10);
             canvas1.Children.Add(elipse_toleft);
             listelipses.Add(elipse_toleft);
         }
@@ -214,9 +247,9 @@ namespace drawcontour_vanhung
             elipse_topright.Width = 20;
             elipse_topright.Height = 20;
             elipse_topright.Stroke = new SolidColorBrush(Colors.Green);
-            elipse_topright.StrokeThickness = 2;
-            elipse_topright.SetValue(Canvas.LeftProperty, positionx - 9 + shape_selected.Width);
-            elipse_topright.SetValue(Canvas.TopProperty, positiony - 9);
+            elipse_topright.StrokeThickness = 1.5;
+            elipse_topright.SetValue(Canvas.LeftProperty, positionx - 10 + shape_selected.Width);
+            elipse_topright.SetValue(Canvas.TopProperty, positiony - 10);
             canvas1.Children.Add(elipse_topright);
             listelipses.Add(elipse_topright);
         }
@@ -226,9 +259,9 @@ namespace drawcontour_vanhung
             elipse_belowleft.Width = 20;
             elipse_belowleft.Height = 20;
             elipse_belowleft.Stroke = new SolidColorBrush(Colors.Green);
-            elipse_belowleft.StrokeThickness = 2;
-            elipse_belowleft.SetValue(Canvas.LeftProperty, positionx - 9);
-            elipse_belowleft.SetValue(Canvas.TopProperty, positiony - 9 + shape_selected.Height);
+            elipse_belowleft.StrokeThickness = 1.5;
+            elipse_belowleft.SetValue(Canvas.LeftProperty, positionx - 10);
+            elipse_belowleft.SetValue(Canvas.TopProperty, positiony - 10 + shape_selected.Height);
             canvas1.Children.Add(elipse_belowleft);
             listelipses.Add(elipse_belowleft);
         }
@@ -239,8 +272,8 @@ namespace drawcontour_vanhung
             elipse_belowright.Height = 20;
             elipse_belowright.Stroke = new SolidColorBrush(Colors.Green);
             elipse_belowright.StrokeThickness = 2;
-            elipse_belowright.SetValue(Canvas.LeftProperty, positionx - 9 + shape_selected.Width);
-            elipse_belowright.SetValue(Canvas.TopProperty, positiony - 9 + shape_selected.Height);
+            elipse_belowright.SetValue(Canvas.LeftProperty, positionx - 10 + shape_selected.Width);
+            elipse_belowright.SetValue(Canvas.TopProperty, positiony - 10 + shape_selected.Height);
             canvas1.Children.Add(elipse_belowright);
             listelipses.Add(elipse_belowright);
         }
