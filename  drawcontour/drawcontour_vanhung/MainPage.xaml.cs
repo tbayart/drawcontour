@@ -20,7 +20,7 @@ namespace drawcontour_vanhung
         }
        
         Shape shape_curentselected;
-        private bool moving = false;
+        
         Point start;
         Point current;
         Point topleft;
@@ -29,43 +29,25 @@ namespace drawcontour_vanhung
         Point belowleft;
         PointCollection points = new PointCollection();
         List<Ellipse> listelipses = new List<Ellipse>();
-        bool conditionchangersize = false;
-        Point startchanger;
-        Point enchanger;
-        bool beginchanger = false;
-        double newwidth;
-        double newheight;
+        bool changer = false;
+       // bool conditionchangersize = false;
+       
         private void canvas1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (changersize==true)
-            {
-                startchanger=new Point(e.GetPosition(canvas1).X,e.GetPosition(canvas1).Y);
-                beginchanger = true;
-                this.Cursor = Cursors.SizeNWSE;
-               
-            }
-            //this.Cursor = Cursors.SizeNS;
-          ////  points.Clear();
-          //  start = e.GetPosition(this);
-          //  points.Add(start);
-          //  moving = true;
-          //  this.Cursor = Cursors.Hand;
+           
         }
 
         private void canvas1_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            conditionchangersize = false;
-            this.Cursor = Cursors.Arrow;
-            //moving = false;
-            //this.Cursor = Cursors.Arrow;
+            
         }
-        Point current_Selectted;
+       
         private double distance(Point diem1,Point diem2)
         {
             return Math.Sqrt(Math.Pow(diem2.X - diem1.X, 2) + Math.Pow(diem2.Y - diem1.Y, 2));
         }
-        Ellipse elipse_selected;
-        bool changersize = false;
+       
+       
         private void ReDraw(Point location,double Width,double Height)
         {
             Rectangle newrectanger = new Rectangle();
@@ -80,52 +62,9 @@ namespace drawcontour_vanhung
         }
         private void canvas1_MouseMove(object sender, MouseEventArgs e)
         {
-            current_Selectted = new Point(e.GetPosition(canvas1).X, e.GetPosition(canvas1).Y);
-            double khoangcach = distance(current_Selectted, topleft);
            
-           try
-           {
-               if (khoangcach<20)
-               {
-
-                   this.Cursor = Cursors.SizeNWSE;
-                   changersize = true;
-               }
-               else
-               {
-                   changersize = false;
-               }
               
-               if (changersize==true)
-               {
-                  // MessageBox.Show("");
-                  // this.Cursor = Cursors.SizeNS;
-                   this.Cursor = Cursors.SizeNWSE;
-                   moving_rectanger = false;
-               }
-               else
-               {
-                   this.Cursor = Cursors.Arrow;
-               }
-               if (beginchanger==true)
-               {
-                   enchanger = new Point(e.GetPosition(canvas1).X, e.GetPosition(canvas1).Y);
-                   double khoangthaydoix = enchanger.X - startchanger.X;
-                   double khoangthaydoiy = enchanger.Y - startchanger.Y;
-                   topleft.X = topleft.X - khoangthaydoix;
-                   topleft.Y = topleft.Y - khoangthaydoiy;
-                   belowleft.X = belowleft.X - khoangthaydoix;
-                   newwidth = belowright.X - belowleft.X;
-                   newheight = belowleft.Y - topleft.Y;
-                   canvas1.Children.Remove(shape_curentselected);
-                   ReDraw(topleft, newwidth, newheight);
-               }
-              
-           }
-           catch (System.Exception ex)
-           {
-           	
-           }
+          
         }
        bool moving_rectanger=false;
        double positionx = 0;
@@ -225,18 +164,25 @@ namespace drawcontour_vanhung
         }
         void rectanger_MouseMove(object sender, MouseEventArgs e)
         {
-            if (moving_rectanger==true)
+            try
             {
-                foreach (Ellipse elipse in listelipses)
+                if (moving_rectanger == true)
                 {
-                    canvas1.Children.Remove(elipse);
+                    foreach (Ellipse elipse in listelipses)
+                    {
+                        canvas1.Children.Remove(elipse);
+                    }
+                    Canvas canvas = (Canvas)shape_curentselected.Parent;
+                    current = e.GetPosition(canvas);
+                    double x = current.X - start.X;
+                    double y = current.Y - start.Y;
+                    shape_curentselected.SetValue(Canvas.LeftProperty, x);
+                    shape_curentselected.SetValue(Canvas.TopProperty, y);
                 }
-                Canvas canvas = (Canvas)shape_curentselected.Parent;
-                current = e.GetPosition(canvas);
-                double x=current.X-start.X;
-                double y=current.Y-start.Y;
-                shape_curentselected.SetValue(Canvas.LeftProperty, x);
-                shape_curentselected.SetValue(Canvas.TopProperty, y);
+            }
+            catch (System.Exception ex)
+            {
+            	
             }
             //throw new NotImplementedException();
         }
@@ -246,6 +192,10 @@ namespace drawcontour_vanhung
             Shape shape = (Shape)sender;
             positionx = (double)shape.GetValue(Canvas.LeftProperty);
             positiony = (double)shape.GetValue(Canvas.TopProperty);
+            topleft = new Point(positionx, positiony);
+            topright = new Point(positionx + shape_curentselected.Width, positiony);
+            belowleft = new Point(positionx, positiony + shape_curentselected.Height);
+            belowright = new Point(positionx + shape_curentselected.Width, positiony + shape_curentselected.Height);
             vehinhtaidiemtrenbentrai();
             vehinhtaidiembenphaitren();
             vehinhtaidiembenphaiduoi();
@@ -262,6 +212,7 @@ namespace drawcontour_vanhung
         {
            try
            {
+               //changer = false;
                shape_curentselected = (Shape)sender;
                FrameworkElement ui = (FrameworkElement)sender;
                foreach (Ellipse elipse in listelipses)
@@ -270,19 +221,21 @@ namespace drawcontour_vanhung
                }
              positionx= (double) ui.GetValue(Canvas.LeftProperty);
              positiony = (double)ui.GetValue(Canvas.TopProperty);
-               shape_curentselected = (Shape)sender;
-               shape_curentselected.GetValue(Canvas.LeftProperty);
-               start = e.GetPosition(shape_curentselected);
+             //label3.Content = positionx.ToString();
+             //label4.Content = positiony.ToString();
+               //shape_curentselected = (Shape)sender;
+               //shape_curentselected.GetValue(Canvas.LeftProperty);
+               //start = e.GetPosition(shape_curentselected);
                topleft = new Point(positionx, positiony);
                topright = new Point(positionx + shape_curentselected.Width,positiony);
                belowleft = new Point(positionx, positiony + shape_curentselected.Height);
                belowright = new Point(positionx + shape_curentselected.Width, positiony + shape_curentselected.Height);
                moving_rectanger = true;
-               vehinhtaidiemtrenbentrai();
-               vehinhtaidiembenphaitren();
-               vehinhtaidiembenphaiduoi();
+               //vehinhtaidiemtrenbentrai();
+               //vehinhtaidiembenphaitren();
+               //vehinhtaidiembenphaiduoi();
 
-               vehinhtaidiembentraiduoi();
+               //vehinhtaidiembentraiduoi();
                this.Cursor = Cursors.Hand;
            }
            catch (System.Exception ex)
@@ -296,6 +249,57 @@ namespace drawcontour_vanhung
         {
             this.Cursor = Cursors.Arrow;
 
+        }
+
+        private void LayoutRoot_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point current = e.GetPosition(canvas1);
+            double khoang_cach = distance(topleft, current);
+            if (khoang_cach<20)
+            {
+                //MessageBox.Show("");
+                changer = true;
+                this.Cursor = Cursors.SizeNWSE;
+                moving_rectanger = false;
+            }
+            else
+            {
+                this.Cursor = Cursors.Arrow;
+                //changer = false;
+                //moving_rectanger = true;
+            }
+            //label1.Content = e.GetPosition(canvas1).X.ToString();
+            //label2.Content = e.GetPosition(canvas1).Y.ToString();
+        }
+        private void changershape(Point location,double Width,double Height)
+        {
+            if (changer==true)
+            {
+                shape_curentselected.SetValue(Canvas.LeftProperty, location.X);
+                shape_curentselected.SetValue(Canvas.TopProperty, location.Y);
+                shape_curentselected.Width = Width;
+                shape_curentselected.Height = Height;
+            }
+        }
+        private void LayoutRoot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (changer==true)
+            {
+                this.Cursor = Cursors.SizeNWSE;
+            }
+        }
+
+        private void LayoutRoot_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (changer==true)
+            {
+                Point current = e.GetPosition(canvas1);
+                double widht = belowright.X - current.X;
+                double Height = belowright.Y - current.Y;
+                topleft.X = current.X;
+                topleft.Y = current.Y;
+                changershape(current, widht, Height);
+            }
         }
     }
 }
