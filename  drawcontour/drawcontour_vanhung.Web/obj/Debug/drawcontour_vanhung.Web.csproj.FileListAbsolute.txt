@@ -18,3 +18,8 @@ C:\Users\Tuvu\Desktop\contourofvanhung\drawcontour_vanhung.Web\bin\drawcontour_v
 C:\Users\Tuvu\Desktop\contourofvanhung\drawcontour_vanhung.Web\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Tuvu\Desktop\contourofvanhung\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.dll
 C:\Users\Tuvu\Desktop\contourofvanhung\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.pdb
+C:\Users\HUNG NGUYEN\Desktop\ drawcontour\drawcontour_vanhung.Web\bin\drawcontour_vanhung.Web.dll
+C:\Users\HUNG NGUYEN\Desktop\ drawcontour\drawcontour_vanhung.Web\bin\drawcontour_vanhung.Web.pdb
+C:\Users\HUNG NGUYEN\Desktop\ drawcontour\drawcontour_vanhung.Web\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\HUNG NGUYEN\Desktop\ drawcontour\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.dll
+C:\Users\HUNG NGUYEN\Desktop\ drawcontour\drawcontour_vanhung.Web\obj\Debug\drawcontour_vanhung.Web.pdb

@@ -158,8 +158,9 @@ namespace drawcontour_vanhung
                             current.X = (double)shape_selected.GetValue(Canvas.LeftProperty);
                             current.Y = (double)shape_selected.GetValue(Canvas.TopProperty);
                             Point enpoint = e.GetPosition(canvas1);
-                            double x = enpoint.X - current.X;
-                            double y = enpoint.Y - current.Y;
+                            Point between = new Point(current.X, current.Y + 0.5 * shape_selected.Height);
+                            double x = enpoint.X - between.X;
+                            double y = enpoint.Y - between.Y;
                             if (shape_selected.Width - x < 3 || y<0)
                             {
                                 return;
@@ -177,10 +178,10 @@ namespace drawcontour_vanhung
                             //elipse.SetValue(Canvas.LeftProperty, enpoint.X - 10);
                             //elipse.SetValue(Canvas.TopProperty, enpoint.Y - 10);
                             shape_selected.SetValue(Canvas.LeftProperty, enpoint.X);
-                            shape_selected.SetValue(Canvas.TopProperty, enpoint.Y);
+                            shape_selected.SetValue(Canvas.TopProperty, enpoint.Y-shape_selected.Height*0.5);
                             
                             positionx = enpoint.X;
-                            positiony = enpoint.Y;
+                            positiony = enpoint.Y-shape_selected.Height*0.5;
                             vehinhtaidiembentraiduoi();
                             vehinhtaidiembenphaiduoi();
                             vehinhtaidiemtrenbentrai();
