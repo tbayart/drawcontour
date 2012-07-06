@@ -39,6 +39,7 @@ namespace drawcontour_vanhung
         Ellipse elipse=new Ellipse();
         private void canvas1_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            //kiemtra = Options.move_rectanger;
             movedown = true;
             Point vitricuahinh = new Point();
            
@@ -57,21 +58,22 @@ namespace drawcontour_vanhung
                 kiemtra = Options.changersize;
                 PointPosition_changer = vitricudiemthaydoi.topleft;
             }
-            else if (khoangcachsovoidiemogiua < 20)
+            else if (khoangcachsovoidiemogiua < 40)
             {
                 kiemtra = Options.changersize;
                 PointPosition_changer = vitricudiemthaydoi.between_top_below_left;
             }
-            else
-            {
-                kiemtra = Options.none;
-            }
+            //else
+            //{
+            //    kiemtra = Options.none;
+            //    PointPosition_changer = vitricudiemthaydoi.none;
+            //}
         }
 
         private void canvas1_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             movedown = false;
-            kiemtra = Options.none;
+           // kiemtra = Options.none;
             Point current = new Point();
             current.X = (double)shape_selected.GetValue(Canvas.LeftProperty);
             current.Y = (double)shape_selected.GetValue(Canvas.TopProperty);
@@ -96,7 +98,7 @@ namespace drawcontour_vanhung
            
               if (kiemtra==Options.move_rectanger&&movedown==true)
               {
-                  
+                  //shape_selected = (Rectangle)sender;
                  foreach (Ellipse elip in listelipses)
                  {
                      canvas1.Children.Remove(elip);
@@ -161,8 +163,9 @@ namespace drawcontour_vanhung
                             Point between = new Point(current.X, current.Y + 0.5 * shape_selected.Height);
                             double x = enpoint.X - between.X;
                             double y = enpoint.Y - between.Y;
-                            if (shape_selected.Width - x < 3 || y<0)
+                            if (shape_selected.Width - x < 3 || y>0)
                             {
+                               // kiemtra = Options.none;
                                 return;
                             }
                             foreach (Ellipse elip in listelipses)
@@ -170,18 +173,18 @@ namespace drawcontour_vanhung
                                 canvas1.Children.Remove(elip);
                             }
                             shape_selected.Width -= x;
-                            //shape_selected.Height -= y;
+                            //shape_selected.Height=shape_selected.Height;
                             foreach (Ellipse elip in listelipses)
                             {
                                 canvas1.Children.Remove(elip);
                             }
-                            //elipse.SetValue(Canvas.LeftProperty, enpoint.X - 10);
-                            //elipse.SetValue(Canvas.TopProperty, enpoint.Y - 10);
+                            elipse.SetValue(Canvas.LeftProperty, enpoint.X - 10);
+                            elipse.SetValue(Canvas.TopProperty, enpoint.Y - 10);
                             shape_selected.SetValue(Canvas.LeftProperty, enpoint.X);
-                            shape_selected.SetValue(Canvas.TopProperty, enpoint.Y-shape_selected.Height*0.5);
+                            //shape_selected.SetValue(Canvas.TopProperty, enpoint.Y-shape_selected.Height*0.5);
                             
                             positionx = enpoint.X;
-                            positiony = enpoint.Y-shape_selected.Height*0.5;
+                            //positiony = enpoint.Y-shape_selected.Height*0.5;
                             vehinhtaidiembentraiduoi();
                             vehinhtaidiembenphaiduoi();
                             vehinhtaidiemtrenbentrai();
@@ -215,7 +218,7 @@ namespace drawcontour_vanhung
                           //kiemtra = Options.changersize;
                           canvas1.Children.Remove(elipse);
                           PointPosition_changer = vitricudiemthaydoi.topleft;
-                          kiemtra = Options.none;
+                          //kiemtra = Options.move_rectanger;
                           elipse.Stroke = new SolidColorBrush(Colors.Red);
                           elipse.StrokeThickness = 1.5;
                           elipse.Width = 20;
@@ -230,11 +233,12 @@ namespace drawcontour_vanhung
                           {
                               canvas1.Children.Add(elipse);
                           }
-                      }else if (khoangcachsovoidiemogiua<20)
+                      }
+                 if (khoangcachsovoidiemogiua<20)
                       {
                           canvas1.Children.Remove(elipse);
                           PointPosition_changer = vitricudiemthaydoi.between_top_below_left;
-
+                          kiemtra = Options.changersize;
 
                           elipse.Stroke = new SolidColorBrush(Colors.Red);
                           elipse.StrokeThickness = 1.5;
@@ -251,12 +255,7 @@ namespace drawcontour_vanhung
                               canvas1.Children.Add(elipse);
                           }
                       }
-                      else
-                      {
-                          PointPosition_changer = vitricudiemthaydoi.none;
-                          kiemtra = Options.move_rectanger;
-                          elipse.Visibility = Visibility.Collapsed;
-                      }
+                     
                   }
            
              
@@ -283,8 +282,9 @@ namespace drawcontour_vanhung
 
         void rectanger_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            kiemtra = Options.none;
-            PointPosition_changer = vitricudiemthaydoi.none;
+            //kiemtra = Options.none;
+            //PointPosition_changer = vitricudiemthaydoi.none;
+            shape_selected = (Rectangle)sender;
             Point current = new Point();
             current.X = (double)shape_selected.GetValue(Canvas.LeftProperty);
             current.Y =(double) shape_selected.GetValue(Canvas.TopProperty);
@@ -300,40 +300,54 @@ namespace drawcontour_vanhung
 
         void rectanger_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            foreach (Ellipse elip in listelipses)
-            {
-                canvas1.Children.Remove(elip);
-            }
             shape_selected = (Rectangle)sender;
-            position_shape = e.GetPosition(shape_selected);
-            kiemtra = Options.move_rectanger;
-            positionx =(double) shape_selected.GetValue(Canvas.LeftProperty);
+          
+           
+           
+           {
+              
+               if (shape_selected == null)
+               {
+                   return;
+               }
+              
+               
+                   foreach (Ellipse elip in listelipses)
+                   {
+                       canvas1.Children.Remove(elip);
+                   }
+                   shape_selected = (Rectangle)sender;
+                   position_shape = e.GetPosition(shape_selected);
+                   kiemtra = Options.move_rectanger;
+                   positionx = (double)shape_selected.GetValue(Canvas.LeftProperty);
 
-            positiony = (double)shape_selected.GetValue(Canvas.TopProperty);
-            Point currentpoint = e.GetPosition(canvas1);
-            Point pointbetween = new Point(positionx, positiony + 0.5 * shape_selected.Height);
-            double khoangcach = distance(currentpoint, pointbetween);
-            if (khoangcach<20)
-            {
-                PointPosition_changer = vitricudiemthaydoi.between_top_below_left;
-            }
-            vehinhtaidiembenphaiduoi();
-            vehinhtaidiembenphaitren();
-            vehinhtaidiembentraiduoi();
-            vehinhtaidiemtrenbentrai();
-            vehinhogiua();
+                   positiony = (double)shape_selected.GetValue(Canvas.TopProperty);
+              
+               vehinhtaidiembenphaiduoi();
+               vehinhtaidiembenphaitren();
+               vehinhtaidiembentraiduoi();
+               vehinhtaidiemtrenbentrai();
+               vehinhogiua();
+           
+           }
+           if (kiemtra==Options.changersize)
+           {
+               return;
+           }
+
             
         }
 
         void rectanger_MouseEnter(object sender, MouseEventArgs e)
         {
 
-           
+            kiemtra = Options.changersize;
         }
 
         void rectanger_MouseLeave(object sender, MouseEventArgs e)
         {
-           
+            //kiemtra = Options.none;
+            kiemtra = Options.changersize;
         }
         void vehinhogiua()
         {
