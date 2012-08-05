@@ -142,7 +142,7 @@ namespace drawcontour_vanhung
                             shape_selected.Height -= y;
 
                             elipse.SetValue(Canvas.LeftProperty, enpoint.X - 10);
-                            elipse.SetValue(Canvas.TopProperty, enpoint.Y - 10);
+                            elipse.SetValue(Canvas.TopProperty, enpoint.Y-10);
                             shape_selected.SetValue(Canvas.LeftProperty, enpoint.X);
                             shape_selected.SetValue(Canvas.TopProperty, enpoint.Y);
                             positionx = enpoint.X;
@@ -174,16 +174,13 @@ namespace drawcontour_vanhung
                             }
                             shape_selected.Width -= x;
                             //shape_selected.Height=shape_selected.Height;
-                            foreach (Ellipse elip in listelipses)
-                            {
-                                canvas1.Children.Remove(elip);
-                            }
-                            elipse.SetValue(Canvas.LeftProperty, enpoint.X - 10);
-                            elipse.SetValue(Canvas.TopProperty, enpoint.Y - 10);
+                            
+                           
                             shape_selected.SetValue(Canvas.LeftProperty, enpoint.X);
                             //shape_selected.SetValue(Canvas.TopProperty, enpoint.Y-shape_selected.Height*0.5);
                             
                             positionx = enpoint.X;
+                            positiony = positiony;
                             //positiony = enpoint.Y-shape_selected.Height*0.5;
                             vehinhtaidiembentraiduoi();
                             vehinhtaidiembenphaiduoi();
@@ -234,7 +231,7 @@ namespace drawcontour_vanhung
                               canvas1.Children.Add(elipse);
                           }
                       }
-                 if (khoangcachsovoidiemogiua<20)
+                      if (khoangcachsovoidiemogiua < 20)
                       {
                           canvas1.Children.Remove(elipse);
                           PointPosition_changer = vitricudiemthaydoi.between_top_below_left;
@@ -254,6 +251,11 @@ namespace drawcontour_vanhung
                           {
                               canvas1.Children.Add(elipse);
                           }
+                      }
+                      else
+                      {
+                          kiemtra = Options.none;
+                          PointPosition_changer = vitricudiemthaydoi.none;
                       }
                      
                   }
@@ -341,13 +343,13 @@ namespace drawcontour_vanhung
         void rectanger_MouseEnter(object sender, MouseEventArgs e)
         {
 
-            kiemtra = Options.changersize;
+            //kiemtra = Options.changersize;
         }
 
         void rectanger_MouseLeave(object sender, MouseEventArgs e)
         {
             //kiemtra = Options.none;
-            kiemtra = Options.changersize;
+           // kiemtra = Options.changersize;
         }
         void vehinhogiua()
         {
